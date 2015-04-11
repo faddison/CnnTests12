@@ -24,7 +24,7 @@ namespace CnnTests
         public void SetupTest()
         {
             driver = new ChromeDriver(Directory.GetCurrentDirectory());
-            driver = new FirefoxDriver();
+            //driver = new FirefoxDriver();
             baseURL = "http://www.cnn.com/";
             verificationErrors = new StringBuilder();
 
