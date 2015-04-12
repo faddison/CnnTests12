@@ -50,6 +50,16 @@ namespace CnnTests
             Assert.AreEqual("", verificationErrors.ToString());
         }
 
+
+        private void TestCode()
+        {
+            driver.Navigate().GoToUrl(baseURL + "/");
+            driver.FindElement(By.LinkText("U.S.")).Click();
+            driver.FindElement(By.LinkText("World")).Click();
+            driver.FindElement(By.LinkText("Politics")).Click();
+            Assert.Pass();
+        }
+
         [Test]
         public void test0() { TestCode(); }
         [Test]
@@ -2054,19 +2064,6 @@ namespace CnnTests
         public void test999() { TestCode(); }
         #endregion
 
-        private void TestCode()
-        {
-            driver.Navigate().GoToUrl(baseURL + "/");
-            driver.FindElement(By.LinkText("U.S.")).Click();
-            driver.FindElement(By.LinkText("World")).Click();
-            driver.FindElement(By.LinkText("Politics")).Click();
-            driver.FindElement(By.LinkText("Tech")).Click();
-            driver.FindElement(By.LinkText("Health")).Click();
-            driver.FindElement(By.LinkText("Entertainment")).Click();
-            driver.FindElement(By.LinkText("Living")).Click();
-            driver.FindElement(By.LinkText("Travel")).Click();
-            Assert.Pass();
-        }
 
         private bool IsElementPresent(By by)
         {

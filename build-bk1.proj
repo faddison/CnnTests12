@@ -1,7 +1,6 @@
 ﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="$(MSBuildExtensionsPath)\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks"/>
-  <Import Project="tests.proj"/>
 
   <PropertyGroup>
     <ThisBuildFile>build.proj</ThisBuildFile>
@@ -59,7 +58,7 @@
 
   <Target Name="RunParallelTestList">
     <Message Text="RunParallelTestList: ParallelTestsToRun = $(ParallelTestsToRun)"/>
-    <MSBuild.ExtensionPack.Framework.Parallel TaskAction="BuildTargetsInParallel" Targets="$(ParallelTestsToRun)"/>
+    <!--<MSBuild.ExtensionPack.Framework.Parallel TaskAction="BuildTargetsInParallel" Targets="$(ParallelTestsToRun)"/>-->
   </Target>
 
   <Target Name="RunTestsInParallel">
@@ -69,11 +68,30 @@
   <Target Name="RunTestsInSequence" DependsOnTargets="$(TestsToRun)">
   </Target>
 
-  <Target Name="RunTests_Output">
+  <Target Name="RunTests_Setup">
     <PropertyGroup>
       <CommandString>$(NUnitConsolePath) /nologo /run:$(TestPrefix)0 $(TestDllPath)</CommandString>
     </PropertyGroup>
+  </Target>
+
+  <Target Name="RunTests_Test" DependsOnTargets="RunTests_Setup">
     <Message Text="CommandString = $(CommandString)" />
+  </Target>
+
+  <Target Name="RunTests" DependsOnTargets="RunTests_Setup">
+    <Exec Command="$(NUnitConsolePath) /nologo /run:$(TestPrefix)0 $(TestDllPath)" />
+  </Target>
+
+  <Target Name="RunTests0" DependsOnTargets="RunTests_Setup">
+    <Exec Command="$(NUnitConsolePath) /nologo /run:$(TestPrefix)0 $(TestDllPath)" />
+  </Target>
+
+  <Target Name="RunTests1" DependsOnTargets="RunTests_Setup">
+    <Exec Command="$(NUnitConsolePath) /nologo /run:$(TestPrefix)1 $(TestDllPath)" />
+  </Target>
+
+  <Target Name="RunTests2" DependsOnTargets="RunTests_Setup">
+    <Exec Command="$(NUnitConsolePath) /nologo /run:$(TestPrefix)2 $(TestDllPath)" />
   </Target>
 
 </Project>

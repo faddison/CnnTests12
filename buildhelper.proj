@@ -1,0 +1,22 @@
+﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="BuildParallelTargetsHelper">
+    <CallTarget Targets="Output"/>
+    <PropertyGroup>
+      <ParallelTestsToRunCount>$([MSBuild]::Add($(ParallelTestsToRunCount),1))</ParallelTestsToRunCount>
+      <ParallelTestsToRun>$(ParallelTestsToRun);RunTests$(ParallelTestsToRunCount)</ParallelTestsToRun>
+    </PropertyGroup>
+    <MSBuild Projects="build.proj" 
+             Targets="BuildParallelTargets" 
+             Properties="ParallelTestsToRunCount=$(ParallelTestsToRunCount);
+                         ParallelTestsToRun=$(ParallelTestsToRun)"/>
+  </Target>
+
+  <Target Name="Output">
+    <Message Text="Executing Helper"/>
+    <Message Text="ParallelTestsToRunCount = $(ParallelTestsToRunCount)"/>
+    <Message Text="ParallelTestsToRunMaximum = $(ParallelTestsToRunMaximum)"/>
+    <Message Text="ParallelTestsToRun = $(ParallelTestsToRun)"/>
+  </Target>
+
+</Project>
